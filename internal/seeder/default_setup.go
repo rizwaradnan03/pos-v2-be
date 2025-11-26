@@ -13,7 +13,7 @@ func DefaultSetupSeeder(db *gorm.DB) {
 	hash1, _ := str.HashPassword("admin123")
 
 	datas := []*schema.User{
-		{ID: uuid.New(), Email: "rizwar@gmail.com", Password: &hash1, Role: enums.RoleTypeADMIN},
+		{ID: uuid.New(), Username: "admin", Password: &hash1, Role: enums.RoleTypeADMIN},
 	}
 
 	db.Create(datas)

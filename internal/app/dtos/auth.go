@@ -9,27 +9,27 @@ import (
 )
 
 type AuthSignInDto struct {
-	Email    string `json:"email" validate:"required"`
+	Username    string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required"`
 }
 
 type AuthSignInUpDto struct {
-	Email    string `json:"email" validate:"required"`
+	Username    string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required"`
 }
 
 type RequestForgotPasswordDto struct {
-	Email string `json:"email" validate:"required"`
+	Username string `json:"username" validate:"required"`
 }
 
 type SendForgotPasswordDto struct {
-	Email    string `json:"email" validate:"required"`
+	Username    string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required"`
 }
 
 type TokenDto struct {
 	ID    uuid.UUID      `json:"id"`
-	Email string         `json:"email"`
+	Username string         `json:"username"`
 	Role  enums.RoleType `json:"role"`
 	Exp   *int64         `json:"exp"`
 }
@@ -39,7 +39,7 @@ type RefreshAccessToken struct {
 }
 
 type OauthGoogleDto struct {
-	Email string `json:"email"`
+	Username string `json:"username"`
 }
 
 func ValidateRequestForgotPassword(dto RequestForgotPasswordDto) error {

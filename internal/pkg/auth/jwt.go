@@ -23,7 +23,7 @@ func JwtEncode(data dtos.TokenDto) (string, error) {
 
 	claims := jwt.MapClaims{
 		"id":    data.ID,
-		"email": data.Email,
+		"username": data.Username,
 		"role":  data.Role,
 		"exp":   expTime,
 	}
@@ -59,8 +59,8 @@ func JwtDecode(tokenString string) (dtos.TokenDto, error) {
 		returnedPayload.ID = uid
 	}
 
-	if Email, ok := claims["email"].(string); ok {
-		returnedPayload.Email = Email
+	if Username, ok := claims["username"].(string); ok {
+		returnedPayload.Username = Username
 	}
 
 	if exp, ok := claims["exp"].(int64); ok {

@@ -45,9 +45,9 @@ func (s *authService) RefreshAccessToken(input dtos.RefreshAccessToken) (*respon
 		return nil, validate.NewError("Gagal decode access token!")
 	}
 
-	fmt.Println("email se : ", decoded.Email)
+	fmt.Println("email se : ", decoded.Username)
 
-	account, err := s.repo.AuthRepository.FindOneByEmail(decoded.Email)
+	account, err := s.repo.AuthRepository.FindOneByEmail(decoded.Username)
 	if err != nil {
 		return nil, validate.NewError("Email tidak ditemukan!")
 	}
@@ -66,7 +66,7 @@ func (s *authService) RefreshAccessToken(input dtos.RefreshAccessToken) (*respon
 	}
 
 	return s.SignIn(dtos.AuthSignInDto{
-		Email:    account.Email,
+		Username:    account.Username,
 		Password: *account.Password,
 	})
 }

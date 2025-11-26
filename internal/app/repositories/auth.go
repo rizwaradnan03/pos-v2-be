@@ -26,7 +26,7 @@ func NewAuthRepository(db *gorm.DB) repositoryinterface.AuthRepositoryInterface 
 func (r *authRepository) SignIn(input dtos.AuthSignInDto) (*responses.AuthSignInResponse, error) {
 	var user schema.User
 
-	err := r.db.Where("email = ?", input.Email).Where("type = ?", enums.AccountTypeCREDENTIAL).First(&user).Error
+	err := r.db.Where("username = ?", input.Username).Where("type = ?", enums.AccountTypeCREDENTIAL).First(&user).Error
 	if err != nil {
 		return nil, err
 	}
@@ -38,7 +38,7 @@ func (r *authRepository) SignIn(input dtos.AuthSignInDto) (*responses.AuthSignIn
 
 	tokenPayload := &dtos.TokenDto{
 		ID:    user.ID,
-		Email: user.Email,
+		Username: user.Username,
 		Role:  user.Role,
 	}
 
@@ -59,7 +59,7 @@ func (r *authRepository) SignIn(input dtos.AuthSignInDto) (*responses.AuthSignIn
 
 			refreshTokenPayload := &dtos.TokenDto{
 				ID:    user.ID,
-				Email: user.Email,
+				Username: user.Username,
 				Role:  user.Role,
 				Exp:   &changeTime,
 			}
@@ -105,13 +105,13 @@ func (r *authRepository) SignUp(input dtos.AuthSignInUpDto) (*schema.User, error
 		return nil, err
 	}
 
-	vd, err := r.IsEmailExist(input.Email)
+	vd, err := r.IsEmailExist(input.Username)
 	if err != nil {
 		return nil, err
 	}
 
 	if vd {
-		return nil, validate.NewError("Email telah digunakan!")
+		return nil, validate.NewError("Username telah digunakan!")
 	}
 
 	hashedPassword, err := str.HashPassword(input.Password)
@@ -120,9 +120,8 @@ func (r *authRepository) SignUp(input dtos.AuthSignInUpDto) (*schema.User, error
 	}
 
 	createValue := &schema.User{
-		Email:      input.Email,
+		Username:      input.Username,
 		Password:   &hashedPassword,
-		MemberType: enums.AccountMemberTypeTypeEXTERNAL,
 	}
 
 	err = r.db.Create(createValue).Error
