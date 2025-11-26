@@ -1,0 +1,50 @@
+###
+GET http://localhost:8080/api/user
+
+###
+POST http://localhost:8080/api/department
+Content-Type: "application/json"
+
+{
+    "name": "PT SIGMA",
+    "description": "jawir",
+    "branch": "MAIN",
+    "is_implement_shift": false
+}
+
+###
+POST http://localhost:8080/api/auth/sign-in
+Content-Type: "application/json"
+
+{
+    "email": "rizwar@gmail.com",
+    "password": "admin123"
+}
+
+###
+GET http://localhost:8080/api/department
+
+###
+GET http://localhost:8080/api/dashboard/admin
+
+###
+GET http://localhost:8080/api/dashboard/admin
+
+###
+GET http://192.168.5.8:8080/api/article/testong
+
+###
+GET http://192.168.5.8:8080/api/article/find-many-published-by-category-id-and-paginate/d73e71a8-3539-40dc-a9d5-50b1f6b52af4/1
+
+
+###
+GET http://localhost:8080/api/article/find-many-published-by-category-id/d1234121-1412-49ec-af8d-86b41fc46a86
+
+###
+POST http://localhost:8080/api/calendar/find-many-for-view
+
+###
+GET http://localhost:8080/api/department-user/find-many-user-for-manage-purpose-by-department-id/9bc67f92-e668-48be-bcd6-2bfad141da0a
+
+###
+GET http://localhost:8080/api/position-on-department/find-many-by-department-id/9bc67f92-e668-48be-bcd6-2bfad141da0a
